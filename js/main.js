@@ -1,0 +1,8 @@
+require([],
+
+function(){
+	'use strict';
+
+	
+	
+});
