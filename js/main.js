@@ -1,8 +1,11 @@
-require([],
+require(['lib/dependencyLoader'],
 
-function(){
+function(dependencyLoader){
 	'use strict';
 
-	
-	
+	dependencyLoader(function(){
+
+		console.log('CDN libraries loaded');
+		
+	});
 });
