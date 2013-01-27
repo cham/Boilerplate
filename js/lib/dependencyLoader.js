@@ -1,3 +1,9 @@
+/*
+	dependencyLoader
+	options
+		preload		boolean		wait for window load event, preloading all images and sources
+		domready	boolean		wait for domready
+*/
 define(function(){
 	'use strict';
 
@@ -9,8 +15,19 @@ define(function(){
 	/*
 	 * provides CDN fallback for jquery and underscore
 	 */
-	return function dependencyLoader(onloaded){
-		var deps = [];
+	return function dependencyLoader(onloaded,opt){
+		var deps = [],
+			options = opt || {};
+
+		function doLoad(){
+			if(options.preload){
+				$(window).load(function(){ onloaded(); });
+			}else if(options.domready){
+				$(document).ready(function(){ onloaded(); });
+			}else{
+				onloaded();
+			}
+		}
 
 		window.$ = window.jQuery;
 		if(!window.$){
@@ -21,12 +38,12 @@ define(function(){
 		}
 
 		if(!deps.length){
-			onloaded();
+			doLoad();
 			return;
 		}
 
 		require(deps,function(){
-			onloaded();
+			doLoad();
 		});
 	};
 });
