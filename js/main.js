@@ -1,17 +1,22 @@
 /*
 	main.js file
 */
-require(['lib/dependencyLoader'],
-function(dependencyLoader){
+require(['lib/DependencyLoader'],
+function(DependencyLoader){
 	'use strict';
 
-	dependencyLoader(function(){
-		console.log('Dependencies loaded');
+	new DependencyLoader({
+		onLoaded: function(){
 
-		// code here
-		
-	},{ // dependencyLoader options
+			console.log('Dependencies loaded');
+			// your code here
+
+		},
 		// domready: true
 		// preload: true
-	});
+		// dependencies: [{symbol:$.fn.scrollTo, path:'lib/jquery-scrollTo.js'}]
+	}).add({
+		// symbol: $.fn.scrollTo,
+		// path:'lib/jquery-scrollTo.js'
+	}).load();
 });

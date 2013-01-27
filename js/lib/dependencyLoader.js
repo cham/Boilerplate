@@ -1,40 +1,45 @@
-/*
-	dependencyLoader
-	options
-		preload		boolean		wait for window load event, preloading all images and sources
-		domready	boolean		wait for domready
-*/
 define(function(){
 	'use strict';
 
-	var paths = {
-		jquery: 'lib/jquery-1.8.3',
-		underscore: 'lib/underscore-min-1.4.3'
+	function DependencyLoader(opt){
+		this.onLoaded = opt.onLoaded;
+		this.dependencies = opt.dependencies || [];
+		this.options = opt;
+
+		this.add({
+			symbol: window.$,
+			path: 'lib/jquery-1.8.3'
+		});
+		this.add({
+			symbol: window._,
+			path: 'lib/underscore-min-1.4.3'
+		});
 	};
 
-	/*
-	 * provides CDN fallback for jquery and underscore
-	 */
-	return function dependencyLoader(onloaded,opt){
+	// add({symbol:jQuery,path:'path/to/jquery.min.js'})
+	DependencyLoader.prototype.add = function(depInfo){
+		this.dependencies.push(depInfo);
+		return this;
+	};
+
+	DependencyLoader.prototype.load = function(){
 		var deps = [],
-			options = opt || {};
+			self = this;
 
 		function doLoad(){
-			if(options.preload){
-				$(window).load(function(){ onloaded(); });
-			}else if(options.domready){
-				$(document).ready(function(){ onloaded(); });
+			if(self.options.preload){
+				$(window).load(function(){ self.onLoaded(); });
+			}else if(self.options.domready){
+				$(document).ready(function(){ self.onLoaded(); });
 			}else{
-				onloaded();
+				self.onLoaded();
 			}
 		}
 
-		window.$ = window.jQuery;
-		if(!window.$){
-			deps.push(paths.jquery);
-		}
-		if(!window._){
-			deps.push(paths.underscore);
+		for(var i in this.dependencies){
+			if(!this.dependencies[i].symbol){
+				deps.push(this.dependencies[i].path);
+			}
 		}
 
 		if(!deps.length){
@@ -45,5 +50,9 @@ define(function(){
 		require(deps,function(){
 			doLoad();
 		});
+
+		return this;
 	};
+
+	return DependencyLoader;
 });
