@@ -37,7 +37,7 @@ define(function(){
 		}
 
 		for(var i in this.dependencies){
-			if(!this.dependencies[i].symbol){
+			if(this.dependencies[i].path && !this.dependencies[i].symbol){
 				deps.push(this.dependencies[i].path);
 			}
 		}
