@@ -8,7 +8,7 @@ define(function(){
 
 		this.add({
 			symbol: window.$,
-			path: 'lib/jquery-1.8.3'
+			path: 'lib/jquery-1.9.0'
 		});
 		this.add({
 			symbol: window._,
