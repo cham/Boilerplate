@@ -2,6 +2,12 @@ define(function(){
 	'use strict';
 
 	function DependencyLoader(opt){
+		opt = opt || {};
+
+		if(!opt.onLoaded){
+			opt.onLoaded = function(){};
+		}
+
 		this.onLoaded = opt.removecsshook ? function(){ $('html.no-js').removeClass('no-js'); opt.onLoaded(); } : opt.onLoaded;
 		this.dependencies = opt.dependencies || [];
 		this.options = opt;
@@ -63,8 +69,6 @@ define(function(){
 		require(deps,function(){
 			doLoad();
 		});
-
-		return this;
 	};
 
 	return DependencyLoader;
