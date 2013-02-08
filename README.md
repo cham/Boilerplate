@@ -11,3 +11,7 @@ Includes:
 * Dependency loader, providing CDN fallback and preloading
 * normalise.css
 * Lightweight HTML5 index.html
+
+===========
+
+See test/ for DependencyLoader manual
