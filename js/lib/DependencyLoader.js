@@ -6,6 +6,10 @@ define(function(){
 		this.dependencies = opt.dependencies || [];
 		this.options = opt;
 
+		if(opt.shimconsole){
+			this.shimConsole();
+		}
+
 		this.add({
 			symbol: window.$,
 			path: 'lib/jquery-1.9.0'
@@ -14,6 +18,15 @@ define(function(){
 			symbol: window._,
 			path: 'lib/underscore-min-1.4.3'
 		});
+	};
+
+	DependencyLoader.prototype.shimConsole = function(){
+        window.console.log = window.console.log || function(){};
+        window.console.warn = window.console.warn || function(){};
+        window.console.error = window.console.error || function(){};
+        window.console.trace = window.console.trace || function(){};
+        window.console.time = window.console.time || function(){};
+        window.console.timeEnd = window.console.timeEnd || function(){};
 	};
 
 	// add({symbol:jQuery,path:'path/to/jquery.min.js'})
