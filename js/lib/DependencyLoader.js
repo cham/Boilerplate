@@ -2,7 +2,7 @@ define(function(){
 	'use strict';
 
 	function DependencyLoader(opt){
-		this.onLoaded = opt.onLoaded;
+		this.onLoaded = opt.removecsshook ? function(){ $('html.no-js').removeClass('no-js'); opt.onLoaded(); } : opt.onLoaded;
 		this.dependencies = opt.dependencies || [];
 		this.options = opt;
 
