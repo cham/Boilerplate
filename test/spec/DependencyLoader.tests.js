@@ -53,6 +53,16 @@ function(DependencyLoader){
 				jqReadySpy.restore();
 			});
 
+			it('accepts a removecsshook option, which removes the no-js class from the <html> element', function(){
+				expect($('html.no-js').length).toEqual(1);
+
+				loader = new DependencyLoader({
+					removecsshook: true
+				}).load();
+
+				expect($('html.no-js').length).toEqual(0);
+			});
+
 			it('accepts a dependencies array, prepended to the list', function(){
 				loader = new DependencyLoader({
 					dependencies: [
