@@ -8,15 +8,11 @@ function(DependencyLoader){
 	new DependencyLoader({
 		onLoaded: function(){
 
-			console.log('Dependencies loaded');
 			// your code here
 
 		},
-		// domready: true
-		// preload: true
-		// dependencies: [{symbol:$.fn.scrollTo, path:'lib/jquery-scrollTo.js'}]
-	}).add({
-		// symbol: $.fn.scrollTo,
-		// path:'lib/jquery-scrollTo.js'
+		removecsshook: true // remove .no-js hook on <html>
+		// domready: true // wait for domready
+		// preload: true // wait for window.load
 	}).load();
 });
