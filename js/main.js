@@ -1,19 +1,18 @@
 /*
 	main.js file
 */
-require(['lib/DependencyLoader'],
-function(DependencyLoader){
+require([
+	'ExampleBackboneView'
+],
+function(
+	ExampleBackboneView
+){
 	'use strict';
 
-	new DependencyLoader({
-		onLoaded: function(){
+	var exampleView = new ExampleBackboneView();
 
-			// your code here
+	$('body').append(exampleView.$el);
 
-		},
-		removecsshook: true // remove .no-js hook on <html>
-		// shimconsole: true // shims console.* methods
-		// domready: true // wait for domready
-		// preload: true // wait for window.load
-	}).load();
+	exampleView.render();
+
 });
