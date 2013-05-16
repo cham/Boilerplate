@@ -2,7 +2,8 @@
 	'use strict';
 
 	var testFiles = [
-		'spec/DependencyLoader.tests.js'
+		'spec/DependencyLoader.tests.js',
+		'spec/ExampleBackboneView.tests.js'
 	];
 
 	mocha.setup({
